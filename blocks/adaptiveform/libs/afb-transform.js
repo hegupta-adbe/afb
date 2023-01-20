@@ -1,4 +1,5 @@
 import { ExcelToJsonFormula } from "./afb-transformrules.js";
+import { Constants } from "./constants.js";
 import Formula from "./json-formula.js";
 
 const PROPERTY = "property";
@@ -59,17 +60,18 @@ export default class ExcelToFormModel {
     /**
      * @param {string} formPath
      */
-    #initFormDef(formPath) {
+    #initFormDef(formPath, metadata) {
         return {
             adaptiveform: "0.10.0",
             metadata: {
               grammar: "json-formula-1.0.0",
-              version: "1.0.0"
+              version: "1.0.0",
+              ...metadata
             },
             properties: {},
             rules: {},
             items: [],
-            action: formPath?.split('.json')[0]
+            action: metadata?.action || formPath?.split('.json')[0]
           }
     }
 
@@ -84,12 +86,12 @@ export default class ExcelToFormModel {
     /**
      * @param {string} formPath
      */
-    async getFormModel(formPath)  {
+    async getFormModel(formPath, metadata)  {
         if(formPath) {
             console.time("Get Excel JSON")
             let exData = await this._getForm(formPath);
             console.timeEnd("Get Excel JSON")
-            return this.transform(exData, formPath, false);
+            return this.transform(exData, formPath, metadata, false);
         }
     }
 
@@ -99,7 +101,7 @@ export default class ExcelToFormModel {
      * 
      * @return {{formDef: any, excelData: any}} response
      */
-    transform(exData, formPath, validateRules) {
+    transform(exData, formPath, metadata, validateRules = false) {
         this.errors = [];
         // if its adaptive form json just return it.
         if(exData?.adaptiveform) {
@@ -108,7 +110,7 @@ export default class ExcelToFormModel {
         if(!exData || !exData.data) {
             throw new Error("Unable to retrieve the form details from " + formPath);
         }
-        const formDef = this.#initFormDef(formPath);
+        const formDef = this.#initFormDef(formPath, metadata);
         
         this.panelMap.set("root", formDef);
 
@@ -172,6 +174,7 @@ export default class ExcelToFormModel {
      * @returns
      */
     #handleField(field) {
+        this.#handleSubmit(field);
         this.#transformFieldType(field);
         this.#transformFlatToHierarchy(field);
 
@@ -255,6 +258,13 @@ export default class ExcelToFormModel {
             if (typeof field?.type === "undefined") {
                 field.name = null
             }
+        }
+    }
+
+    #handleSubmit(field) {
+        if(field?.fieldType === "submit") {
+            if(!field.events) field.events = {};
+            field.events.click = `submitForm('${Constants.SUBMIT_SUCCESS}', '${Constants.SUBMIT_FAILURE}', 'application/json', null, {"tenant" : 'main--afb--adobe.hlx.page'})`;
         }
     }
 

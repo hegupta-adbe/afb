@@ -1900,7 +1900,7 @@ const multipartFormData = (data, attachments) => {
     }
     return formData;
 };
-const submit = async (context, success, error, submitAs = 'application/json', input_data = null) => {
+const submit = async (context, success, error, submitAs = 'application/json', input_data = null, headers) => {
     const endpoint = context.form.action;
     let data = input_data;
     if (typeof data != 'object' || data == null) {
@@ -1915,7 +1915,8 @@ const submit = async (context, success, error, submitAs = 'application/json', in
         submitContentType = 'multipart/form-data';
     }
     await request(context, endpoint, 'POST', formData, success, error, {
-        'Content-Type': submitContentType
+        'Content-Type': submitContentType,
+        ...headers
     });
 };
 const createAction = (name, payload = {}) => {
@@ -2049,11 +2050,13 @@ class FunctionRuntimeImpl {
                     const error = toString(args[1]);
                     const submit_as = args.length > 2 ? toString(args[2]) : 'application/json';
                     const submit_data = args.length > 3 ? valueOf(args[3]) : null;
+                    const headers = args.length > 4 ? valueOf(args[4]) : null;
                     interpreter.globals.form.dispatch(new Submit({
                         success,
                         error,
                         submit_as,
-                        data: submit_data
+                        data: submit_data,
+                        headers
                     }));
                     return {};
                 },
@@ -2255,7 +2258,7 @@ class Form extends Container {
     submit(action, context) {
         if (this.validate().length === 0) {
             const payload = action?.payload || {};
-            submit(context, payload?.success, payload?.error, payload?.submit_as, payload?.data);
+            submit(context, payload?.success, payload?.error, payload?.submit_as, payload?.data, payload?.headers);
         }
     }
     getElement(id) {

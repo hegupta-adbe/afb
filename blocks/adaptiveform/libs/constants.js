@@ -26,6 +26,9 @@
     static ADAPTIVE_FORM_QM = "cmp-adaptiveform__questionmark"
     static ADAPTIVE_FORM_TOOLTIP = "cmp-adaptiveform__tooltip"
 
+    static SUBMIT_SUCCESS = "submitSuccess";
+    static SUBMIT_FAILURE = "submitFailure";
+
     /**
      * data attribute to mark the dragged component valid or invalid.
      * value true for valid

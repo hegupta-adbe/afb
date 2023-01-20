@@ -2,25 +2,42 @@ import ExcelToFormModel from "./libs/afb-transform.js";
 import { createFormInstance, registerFunctions } from "./libs/afb-runtime.js";
 import * as builder from "./libs/afb-builder.js"
 import {customFunctions} from "./customization/custom-functions.js";
+import { readBlockConfig } from '../../scripts/lib-franklin.js';
+import { Constants } from "./libs/constants.js";
+ 
 
 
 export class AdaptiveForm {
     model;
     #form;
     element;
+    metadata;
 
      /**
    * @param {HTMLLinkElement} element
    * @param {any} formJson
    */
-     constructor(element, formJson) {
+     constructor(element, formJson, metadata) {
         this.element = element;
+        this.metadata = metadata;
         this.model = createFormInstance(formJson, undefined);
-        this.model?.subscribe(() => {
-          window.open("thankyou", "_self");
-        }, "success")
+        this.model?.subscribe(this.submitSucess, Constants.SUBMIT_SUCCESS)
+        this.model?.subscribe(this.submitFailure, Constants.SUBMIT_FAILURE)
         registerFunctions(customFunctions);
      }
+
+    submitSucess = async() => {
+      if(this.metadata?.thankpage) {
+        window.open(this.metadata?.thankpage, "_self");
+      } else {
+        this.element.textContent = "Thank you for submitting the form.";
+      }
+    }
+
+    submitFailure = async(args) => {
+      console.log("Arg", args)
+      alert("Submit failed")
+    }
  
   /**
    * @param {string} id
@@ -60,20 +77,21 @@ export class AdaptiveForm {
  /** 
   * @param {HTMLLinkElement} formLink
   * */
-  let createFormContainer = async (placeholder, url) => {
+  let createFormContainer = async (block, url, metadata) => {
     console.log("Loading & Converting excel form to Crispr Form")
     
     console.time('Json Transformation (including Get)');
     const transform = new ExcelToFormModel();
-    const convertedData = await transform.getFormModel(url);
+    const convertedData = await transform.getFormModel(url, metadata);
     console.timeEnd('Json Transformation (including Get)')
     console.log(convertedData);
 
     console.time('Form Model Instance Creation');
-    let adaptiveform = new AdaptiveForm(placeholder, convertedData?.formDef);
+    let adaptiveform = new AdaptiveForm(block, convertedData?.formDef, metadata);
     window.adaptiveform = adaptiveform;
     let form = await adaptiveform.render();
-    placeholder?.replaceWith(form);
+    block.textContent = "";
+    block?.append(form);
     
     console.timeEnd('Form Model Instance Creation');
     return adaptiveform;
@@ -83,11 +101,11 @@ export class AdaptiveForm {
    * @param {{ querySelector: (arg0: string) => HTMLLinkElement | null; }} block
    */
   export default async function decorate(block) {
+    const conf = readBlockConfig(block);
     const formLink = block?.querySelector('a[href$=".json"]');
-    const formLinkWrapper = formLink?.parentElement;
     if (!formLink || !formLink.href) {
-        throw new Error("No formdata action is provided, can't render adaptiveformblock");
+        throw new Error("json url is provided, can't render Adaptive Form ");
     }
 
-    return await createFormContainer(formLinkWrapper || formLink, formLink.href);
+    return await createFormContainer(block, formLink.href, conf);
   }
