@@ -60,6 +60,11 @@ export const renderField = (model, bemBlock, renderInp) => {
   return element;
 };
 
+export function addStyle(element, state) {
+  // add support for comma separated styles.
+  element.className += state?.style ? ` ${state?.style}` : '';
+}
+
 /**
  * @param {any} state FieldJson
  * @param {string} bemBlock
@@ -282,8 +287,3 @@ export const getRender = async (fieldModel) => {
   }
   return block;
 };
-
-export function addStyle(element, state) {
-  // add support for comma separated styles.
-  element.className += state?.style ? ` ${state?.style}` : '';
-}

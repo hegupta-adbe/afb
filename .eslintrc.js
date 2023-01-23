@@ -11,6 +11,8 @@ module.exports = {
     requireConfigFile: false,
   },
   rules: {
+    'no-underscore-dangle': ['off'],
+    'max-classes-per-file': ['off'],
     // allow reassigning param
     'no-param-reassign': [2, { props: false }],
     'linebreak-style': ['error', 'unix'],
