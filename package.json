@@ -8,7 +8,10 @@
     "test:watch": "npm test -- --watch",
     "lint:js": "eslint .",
     "lint:css": "stylelint 'blocks/**/*.css' 'styles/*.css'",
-    "lint": "npm run lint:js && npm run lint:css"
+    "lint": "npm run lint:js && npm run lint:css",
+    "build" : "npm run copy:components && npm run copy:libs",
+    "copy:components" : "cp -R ./node_modules/@adobe/adaptive-form-block/src/libs ./blocks/adaptiveform/",
+    "copy:libs" : "cp -R ./node_modules/@adobe/adaptive-form-block/src/components ./blocks/adaptiveform/"
   },
   "repository": {
     "type": "git",
@@ -21,6 +24,7 @@
   },
   "homepage": "https://github.com/adobe/helix-project-boilerplate#readme",
   "devDependencies": {
+    "@adobe/adaptive-form-block" : "https://github.com/adobe/adaptive-form-block#3de8c41d85e1774e67b1bbe080cba8e56dc2810d",
     "@babel/core": "7.19.3",
     "@babel/eslint-parser": "7.19.1",
     "chai": "4.3.6",

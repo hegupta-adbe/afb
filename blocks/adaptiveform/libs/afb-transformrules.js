@@ -1,13 +1,13 @@
- const TOK_EQ = 'EQ',
-  TOK_GT = 'GT',
-  TOK_LT = 'LT',
-  TOK_GTE = 'GTE',
-  TOK_LTE = 'LTE',
-  TOK_NE = 'NE';
+const TOK_EQ = 'EQ';
+const TOK_GT = 'GT';
+const TOK_LT = 'LT';
+const TOK_GTE = 'GTE';
+const TOK_LTE = 'LTE';
+const TOK_NE = 'NE';
 
+// eslint-disable-next-line import/prefer-default-export
 export class ExcelToJsonFormula {
-
-  numberRegEx = /\d+/
+  numberRegEx = /\d+/;
 
   constructor(rowNumberFieldMap, globals) {
     this.rowNumberFieldMap = rowNumberFieldMap;
@@ -15,17 +15,17 @@ export class ExcelToJsonFormula {
   }
 
   transform(node, value) {
-    this.expression = ""
+    this.expression = '';
     return this.visit(node, value);
   }
 
   visit(n, v) {
     const visitFunctions = {
       Field: (node) => {
-        let name = node?.name;
-        let match = this.numberRegEx.exec(name)
-        let rowNo = match?.[0];
-        let field = this.rowNumberFieldMap?.get(rowNo*1);
+        const name = node?.name;
+        const match = this.numberRegEx.exec(name);
+        const rowNo = match?.[0];
+        const field = this.rowNumberFieldMap?.get(rowNo * 1);
         if (!field) throw new Error(`Unknown column used in excel formula ${node.name}`);
         return field?.name;
       },
@@ -49,38 +49,40 @@ export class ExcelToJsonFormula {
         const second = this.visit(node.children[1], value);
 
         if (node.name === TOK_EQ) return `(${first} == ${second})`;
-        if (node.name === TOK_NE) return `(${first} != ${second})`
-        if (node.name === TOK_GT) return `(${first} > ${second})`
-        if (node.name === TOK_GTE) return`(${first} >= ${second})`
-        if (node.name === TOK_LT) return `(${first} < ${second})`
-        if (node.name === TOK_LTE) return `(${first} <= ${second})`
+        if (node.name === TOK_NE) return `(${first} != ${second})`;
+        if (node.name === TOK_GT) return `(${first} > ${second})`;
+        if (node.name === TOK_GTE) return `(${first} >= ${second})`;
+        if (node.name === TOK_LT) return `(${first} < ${second})`;
+        if (node.name === TOK_LTE) return `(${first} <= ${second})`;
         throw new Error(`Unknown comparator: ${node.name}`);
       },
 
+      // eslint-disable-next-line arrow-body-style
       MultiSelectList: (node) => {
-        if (value === null) return null;
-        return node.children.map(child => this.visit(child));
+        // if (value === null) return null;
+        return node.children.map((child) => this.visit(child));
       },
 
       MultiSelectHash: (node) => {
-        if (value === null) return null;
+        // if (value === null) return null;
         const collected = {};
-        node.children.forEach(child => {
+        node.children.forEach((child) => {
           collected[child.name] = this.visit(child.value);
         });
         return collected;
       },
 
       OrExpression: (node) => {
-        let matched = this.visit(node.children[0]);
-        if (isFalse(matched)) matched = this.visit(node.children[1]);
+        const matched = this.visit(node.children[0]);
+        // if (isFalse(matched)) matched = this.visit(node.children[1]);
         return matched;
       },
 
       AndExpression: (node) => {
+        // eslint-disable-next-line no-unused-vars
         const first = this.visit(node.children[0]);
 
-        if (isFalse(first) === true) return first;
+        // if (isFalse(first) === true) return first;
         return this.visit(node.children[1]);
       },
 
@@ -91,8 +93,8 @@ export class ExcelToJsonFormula {
       },
 
       ConcatenateExpression: (node) => {
-        let first = this.visit(node.children[0]);
-        let second = this.visit(node.children[1]);
+        const first = this.visit(node.children[0]);
+        const second = this.visit(node.children[1]);
         return this.applyOperator(first, second, '&');
       },
 
@@ -125,12 +127,12 @@ export class ExcelToJsonFormula {
         return first * -1;
       },
 
-      Literal: node => node.value,
+      Literal: (node) => `'${node.value}'`,
 
-      Number: node => node.value,
+      Number: (node) => node.value,
 
       Function: (node) => {
-        const resolvedArgs = node.children.map(child => this.visit(child));
+        const resolvedArgs = node.children.map((child) => this.visit(child));
         return this.transformFunction(node, resolvedArgs);
       },
     };
@@ -139,14 +141,16 @@ export class ExcelToJsonFormula {
     return fn(n, v);
   }
 
+  // eslint-disable-next-line class-methods-use-this
   applyOperator(first, second, operator) {
     return `(${first} ${operator} ${second})`;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   transformFunction(node, resolvedArgs) {
-    if(node.name == "min") {
-      return `${node.name}([${resolvedArgs}])`
+    if (node.name === 'min') {
+      return `${node.name}([${resolvedArgs}])`;
     }
-    return `${node.name}(${resolvedArgs})`
+    return `${node.name}(${resolvedArgs})`;
   }
 }
