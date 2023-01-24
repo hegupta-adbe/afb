@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/adobe/helix-project-boilerplate#readme",
   "devDependencies": {
-    "@adobe/adaptive-form-block" : "https://github.com/adobe/adaptive-form-block#d2b9e5284e4d17c2a68ed7df3aea65f3d1241417",
+    "@adobe/adaptive-form-block" : "https://github.com/adobe/adaptive-form-block#65093daefea95fde56961c96b58142a8b606ae4d",
     "@babel/core": "7.19.3",
     "@babel/eslint-parser": "7.19.1",
     "chai": "4.3.6",

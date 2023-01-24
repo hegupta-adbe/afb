@@ -139,7 +139,8 @@ export default class ExcelToFormModel {
         }
       }
       // always add field to avoid difference in row number and excel number.
-      this.rowNumberFieldMap.set(rowNo += 1, field);
+      this.rowNumberFieldMap.set(rowNo, field);
+      rowNo += 1;
     });
 
     this.#transformExcelForumulaToRule(transformRules, validateRules);
