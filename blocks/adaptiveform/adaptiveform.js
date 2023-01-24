@@ -27,11 +27,8 @@ export class AdaptiveForm {
      }
 
     submitSucess = async() => {
-      if(this.metadata?.thankpage) {
-        window.open(this.metadata?.thankpage, "_self");
-      } else {
-        this.element.textContent = "Thank you for submitting the form.";
-      }
+      let redirect = this.metadata?.redirect || "thankyou"
+      window.open(redirect, "_self");
     }
 
     submitFailure = async(args) => {
