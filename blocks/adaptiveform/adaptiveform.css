@@ -4570,7 +4570,8 @@ textarea.cmp-adaptiveform-textinput__widget {
 
 .vaform .cmp-adaptiveform-checkbox {
   margin-left:15px;
-  margin-top:10px
+  margin-top:10px;
+  border-left-width: 0px;
 }
 
 .vaform .cmp-adaptiveform-checkbox-item span {
