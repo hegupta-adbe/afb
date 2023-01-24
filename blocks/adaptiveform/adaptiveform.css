@@ -4389,3 +4389,212 @@ textarea.cmp-adaptiveform-textinput__widget {
       padding-right: 75px;
   }
 }
+
+
+
+
+
+/* Custom CSS */
+
+.vaform .cmp-adaptiveform-panel {
+  padding: 30px 90px;
+  background-color: #fff;
+  border: 1px solid #dadada;
+  margin-bottom: 30px;
+  width: 580px;
+}
+
+.vaform .panelHeader {
+  font-family: gotham-book,sans-serif;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.5;
+  color: #61126b;
+}
+
+.vaform .cmp-adaptiveform-textinput {
+ border: 1px solid #666;
+ margin-top: 40px;
+ background-color: white;
+}
+
+.vaform .cmp-adaptiveform-textinput:focus-within {
+  border-top: 0.1px solid !important ;
+  border-left:  0.1px solid  !important;
+  border-right: 0.1px solid !important ;
+  border-bottom: 3px solid #61126b !important;
+}
+
+.vaform  .cmp-adaptiveform-textinput > .cmp-adaptiveform-textinput__widget {
+  border: none !important;
+  outline: none;
+  width: calc(100% - 85px);
+  height: 32px;
+  color: #666;
+  border: 1px solid #666; 
+  border-radius: 0rem;
+  margin-top: 0px;
+  padding-left: 10px;
+  font-size: 1rem;
+  padding: 8px 0 8px 8px;
+}
+
+.vaform .cmp-adaptiveform-dropdown > .cmp-adaptiveform-dropdown__widget {
+  height: 50px;
+}
+
+.vaform .cmp-adaptiveform-textinput > .cmp-adaptiveform-textinput__widget:focus  {
+  border-width: 0rem;
+}
+
+.vaform .cmp-adaptiveform-textinput > .cmp-adaptiveform-textinput__widget ~ .cmp-adaptiveform-textinput__label {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  color:#222;
+  pointer-events: none;
+  transition: 0.2s ease all;
+  font-size: 16px;
+  font-family: sans-serif;
+}
+
+.vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget:focus ~ .cmp-adaptiveform-textinput__label,
+.vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget:not(:focus):valid ~ .cmp-adaptiveform-textinput__label
+{
+  position: absolute;
+  color: #61126b !important;
+  bottom: 42px;
+  left: 10px;
+  font-size: 10px;
+  background-color: white;
+}
+
+.vaform .cmp-adaptiveform-textinput span.input-icons {
+  visibility: hidden;
+  position: relative;
+  top: 5px;
+}
+
+.vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget.input_with_value ~ span.input-close-icon {
+   visibility: visible;
+   cursor: pointer;
+}
+
+
+.vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget.input_with_value ~ span.input-done-icon {
+  visibility: visible;
+  cursor: text;
+}
+
+.vaform .cmp-adaptiveform-textinput[data-cmp-valid="false"] .cmp-adaptiveform-textinput__widget:not(.input_with_value) ~ span.input-error-icon {
+  visibility: visible;
+  cursor: text;
+}
+
+.vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget:focus ~ span.input-error-icon {
+  visibility: hidden !important;
+}
+
+.vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget:focus ~ .cmp-adaptiveform-textinput__errorMessage {
+  display:none;
+}
+
+.vaform .cmp-adaptiveform-textinput[data-cmp-valid="true"] {
+  border: 1px solid #666; 
+}
+
+.vaform .cmp-adaptiveform-textinput[data-cmp-valid="false"]  {
+  border: 1px solid red; 
+  padding: 0px;
+}
+
+.vaform .cmp-adaptiveform-dropdown[data-cmp-valid="false"]  {
+  border: none; 
+  background-color: white;
+  padding: 0px;
+}
+
+.vaform .cmp-adaptiveform-dropdown[data-cmp-valid="false"] > .cmp-adaptiveform-dropdown__widget {
+  border: 1px solid red;
+}
+
+.vaform .cmp-adaptiveform-textinput[data-cmp-valid="false"] > .cmp-adaptiveform-textinput__label {
+ color: #ff5252;
+}
+
+.vaform .cmp-adaptiveform-textinput[data-cmp-valid="false"]  > .cmp-adaptiveform-textinput__widget.input_with_value ~ .cmp-adaptiveform-textinput__label
+{
+  position: absolute;
+  color: #ff5252;
+  bottom: 40px;
+  left: 10px;
+  font-size: 10px;
+  background-color: white;
+}
+
+.vaform .cmp-adaptiveform-textinput  .cmp-adaptiveform-textinput__widget ~ .input_counter_span
+{
+  font-weight: 100;
+  font-size: 12px;
+  font-family: gotham-book,sans-serif;
+  position: absolute;
+  bottom: -25px;
+  right: 0px;
+ }
+
+ .vaform .cmp-adaptiveform-textinput  .cmp-adaptiveform-textinput__widget.input_with_max_value ~ .input_counter_span {
+  color: red;
+ }
+
+.vaform .cmp-adaptiveform-textinput[data-cmp-valid="false"] > .cmp-adaptiveform-textinput__errorMessage
+{
+  color: #ff5252;
+  font-weight: 100;
+  font-size: 12px;
+  font-family: gotham-book,sans-serif;
+  position: absolute;
+  bottom: -20px;
+ }
+
+ .vaform .cmp-adaptiveform-dropdown[data-cmp-valid="false"] > .cmp-adaptiveform-dropdown__errorMessage  {
+  color: #ff5252;
+  font-weight: 100;
+  font-size: 12px;
+  font-family: gotham-book,sans-serif;
+  position:relative;
+  top: 5px;
+ }
+
+
+ /*** checkbox styling */
+
+.vaform .cmp-adaptiveform-checkbox {
+  margin-left:15px;
+  margin-top:10px
+}
+
+.vaform .cmp-adaptiveform-checkbox-item span {
+  font-size: 16px;
+   color: #222;
+   position:relative;
+   top: -5px;
+   left: 12px;
+   min-height: 8px;
+   font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+
+.vaform .cmp-adaptiveform-checkbox-item input {
+  width: 25px; 
+  height: 25px; 
+}
+
+.vaform .submit .cmp-adaptiveform-button {
+  padding: 16px 32px;
+  width: 500px;
+  margin-top: 55px;
+  border-radius: 0%;
+  background-color: red;
+  background-image: linear-gradient(279deg,#a11453,#e1163c);
+  color: #fff;
+  border: 0px;
+}
