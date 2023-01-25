@@ -3447,10 +3447,15 @@ body {
     position: relative
 }
 
-.surveyform .cmp-adaptiveform-radiobutton__label {
-    margin-bottom: 10px;
-    display: block;
-    width: 95%
+@media only screen and (width >=1200px) {
+     :root {
+        --section-width: 1128px;
+    }
+    .surveyform .cmp-adaptiveform-radiobutton__label {
+        margin-bottom: 10px;
+        display: block;
+        width: 95%
+    }
 }
 
 .cmp-adaptiveform-radiobutton__longdescription {
