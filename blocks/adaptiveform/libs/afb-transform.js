@@ -36,6 +36,7 @@ export default class ExcelToFormModel {
         ["file-input", "file"],
         ["drop-down", "select"],
         ["radio-group", "radio-group"],
+        ["rating","rating"],
         ["checkbox-group", "checkbox-group"],
         ["plain-text", "plain-text"],
         ["checkbox", "checkbox"],
