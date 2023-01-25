@@ -4447,6 +4447,11 @@ textarea.cmp-adaptiveform-textinput__widget {
   border-width: 0rem;
 }
 
+.vaform .cmp-adaptiveform-textinput > .cmp-adaptiveform-textinput__widget:focus ~ span.input-close-icon  {
+  color: #61126b !important;
+}
+
+
 .vaform .cmp-adaptiveform-textinput > .cmp-adaptiveform-textinput__widget ~ .cmp-adaptiveform-textinput__label {
   position: absolute;
   bottom: 10px;
@@ -4480,15 +4485,21 @@ textarea.cmp-adaptiveform-textinput__widget {
    cursor: pointer;
 }
 
+.vaform .cmp-adaptiveform-textinput[data-cmp-valid="false"] .cmp-adaptiveform-textinput__widget.input_with_value ~ span.input-close-icon {
+  color: red;
+}
+
 
 .vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget.input_with_value ~ span.input-done-icon {
   visibility: visible;
   cursor: text;
+  color:green;
 }
 
 .vaform .cmp-adaptiveform-textinput[data-cmp-valid="false"] .cmp-adaptiveform-textinput__widget:not(.input_with_value) ~ span.input-error-icon {
   visibility: visible;
   cursor: text;
+  color: red;
 }
 
 .vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget:focus ~ span.input-error-icon {

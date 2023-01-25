@@ -19,7 +19,6 @@ export const createTickIcon = (bemBlock) => {
     let span = document.createElement('span');
     span.className = 'material-symbols-outlined input-icons input-done-icon';
     span.textContent = 'done';
-    span.style.color = 'green';
     return span;
 }
 
@@ -37,7 +36,6 @@ export const createCloseIcon = (bemBlock) => {
 export const createErrorIcon = (bemBlock) => {
     let span = document.createElement('span');
     span.className = 'material-symbols-outlined input-icons input-error-icon';
-    span.style.color = 'red';
     span.textContent = 'error';
     return span;
 }
