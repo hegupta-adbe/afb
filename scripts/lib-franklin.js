@@ -531,12 +531,12 @@ export async function waitForLCP(lcpBlocks) {
  * loads a block named 'header' into header
  */
 
-/*export function loadHeader(header) {
-  const headerBlock = buildBlock('header', '');
-  header.append(headerBlock);
-  decorateBlock(headerBlock);
-  return loadBlock(headerBlock);
-}*/
+export function loadHeader(header) {
+    const headerBlock = buildBlock('header', '');
+    header.append(headerBlock);
+    decorateBlock(headerBlock);
+    return loadBlock(headerBlock);
+}
 
 /**
  * loads a block named 'footer' into footer
