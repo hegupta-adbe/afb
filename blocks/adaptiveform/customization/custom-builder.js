@@ -60,7 +60,7 @@ export let renderField = (model, bemBlock, renderInput) => {
     let tickIcon  = builder?.default?.createTickIcon(bemBlock);
     let errorIcon  = builder?.default?.createErrorIcon(bemBlock);
     let counterSpan  = builder?.default?.createCounterSpan(bemBlock);
-    let maxValue = state?.maximum;
+    let maxValue = state?.maxLength;
     counterSpan.textContent = `0 / ${maxValue}`;
     inputs ? element.appendChild(inputs) : null;
     if ( state?.fieldType !== 'select') {
@@ -87,7 +87,7 @@ export let renderField = (model, bemBlock, renderInput) => {
     longDesc ?  element.appendChild(longDesc) : null;
     help ? element.appendChild(help) : null;
     error? element.appendChild(error): null;
-    counterSpan && state?.fieldType !== 'select' && state?.maximum != undefined ? element.appendChild(counterSpan): null;
+    counterSpan && state?.fieldType !== 'select' && state?.maxLength != undefined ? element.appendChild(counterSpan): null;
     return element;
 }
 
