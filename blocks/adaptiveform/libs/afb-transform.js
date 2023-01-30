@@ -180,6 +180,7 @@ export default class ExcelToFormModel {
 
         this.#handleMultiValues(field, "enum");
         this.#handleMultiValues(field, "enumNames");
+        this.#handleEnumRef(field);
 
         this.#handleFranklinSpecialCases(field);
         this.#handlePanel(field);
@@ -236,6 +237,15 @@ export default class ExcelToFormModel {
         if(item && item[key]) {
             values = item[key].split(",").map((value)=> value.trim());
             item[key] = values;
+        }
+    }
+
+    #handleEnumRef(item) {
+        if(item.enumRef) {
+            let eventName = `${item.name}enumRefLoaded`;
+            item.events = item.events || {} 
+            item.events.initialize = `request('${item.enumRef}', 'GET', null, '${eventName}')`;
+            item.events[`custom:${eventName}`] = `{ enum : $event.payload.${item.enum}, enumNames: $event.payload.${item.enumNames}}`
         }
     }
 
