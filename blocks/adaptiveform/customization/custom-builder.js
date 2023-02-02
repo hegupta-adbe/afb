@@ -79,9 +79,9 @@ export let renderField = (model, bemBlock, renderInput) => {
 
             counterSpan.textContent = `${inputValue.length} / ${maxValue}`;
         });
-        closeIcon ? element.appendChild(closeIcon) : null;
-        tickIcon ? element.appendChild(tickIcon) : null;
-        errorIcon ? element.appendChild(errorIcon) : null;
+        // closeIcon ? element.appendChild(closeIcon) : null;
+        // tickIcon ? element.appendChild(tickIcon) : null;
+        // errorIcon ? element.appendChild(errorIcon) : null;
     }
     label ? element.appendChild(label) : null;
     longDesc ?  element.appendChild(longDesc) : null;
