@@ -16,26 +16,24 @@ export const createLabel = (state, bemBlock) => {
 }
 
 export const createTickIcon = (bemBlock) => {
-    let span = document.createElement('span');
-    span.className = 'material-symbols-outlined input-icons input-done-icon';
-    span.textContent = 'done';
-    return span;
+    let div = document.createElement('div');
+    div.className = 'input-icons input-done-icon';
+    return div;
 }
 
 export const createCloseIcon = (bemBlock) => {
-    let span = document.createElement('span');
-    span.className = 'material-symbols-outlined input-icons input-close-icon';
-    span.textContent = 'close';
-    span.addEventListener('click', (event) => {
+    let div = document.createElement('div');
+    div.className = 'input-icons input-close-icon';
+    div.addEventListener('click', (event) => {
         event.target.parentElement.getElementsByClassName("cmp-adaptiveform-textinput__widget")[0].value = ''
         event.target.parentElement.getElementsByClassName("cmp-adaptiveform-textinput__widget")[0].dispatchEvent(new Event('input'));
     })
-    return span;
+    return div;
 }
 
 export const createErrorIcon = (bemBlock) => {
     let span = document.createElement('span');
-    span.className = 'material-symbols-outlined input-icons input-error-icon';
+    span.className = 'input-icons input-error-icon';
     span.textContent = 'error';
     return span;
 }
@@ -63,7 +61,7 @@ export let renderField = (model, bemBlock, renderInput) => {
     let maxValue = state?.maxLength;
     counterSpan.textContent = `0 / ${maxValue}`;
     inputs ? element.appendChild(inputs) : null;
-    if ( state?.fieldType !== 'select') {
+    if ( state?.fieldType !== 'select' && state?.fieldType != 'datepicker') {
         inputs.addEventListener('input', (event) => {   
             let inputValue = event.target.value;
             if ( inputValue.length === 0) {
@@ -79,8 +77,8 @@ export let renderField = (model, bemBlock, renderInput) => {
 
             counterSpan.textContent = `${inputValue.length} / ${maxValue}`;
         });
-        // closeIcon ? element.appendChild(closeIcon) : null;
-        // tickIcon ? element.appendChild(tickIcon) : null;
+         closeIcon ? element.appendChild(closeIcon) : null;
+         tickIcon ? element.appendChild(tickIcon) : null;
         // errorIcon ? element.appendChild(errorIcon) : null;
     }
     label ? element.appendChild(label) : null;

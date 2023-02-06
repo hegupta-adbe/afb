@@ -4412,20 +4412,25 @@ textarea.cmp-adaptiveform-textinput__widget {
   color: #61126b;
 }
 
-.vaform .cmp-adaptiveform-textinput {
+.vaform .cmp-adaptiveform-textinput ,
+.vaform .cmp-adaptiveform-datepicker
+{
  border: 1px solid #666;
  margin-top: 40px;
  background-color: white;
 }
 
-.vaform .cmp-adaptiveform-textinput:focus-within {
+.vaform .cmp-adaptiveform-textinput:focus-within,
+.vaform .cmp-adaptiveform-datepicker:focus-within
+{
   border-top: 0.1px solid !important ;
   border-left:  0.1px solid  !important;
   border-right: 0.1px solid !important ;
   border-bottom: 3px solid #61126b !important;
 }
 
-.vaform  .cmp-adaptiveform-textinput > .cmp-adaptiveform-textinput__widget {
+.vaform  .cmp-adaptiveform-textinput > .cmp-adaptiveform-textinput__widget ,
+.vaform  .cmp-adaptiveform-datepicker > .cmp-adaptiveform-datepicker__widget {
   border: none !important;
   outline: none;
   width: calc(100% - 85px);
@@ -4443,16 +4448,18 @@ textarea.cmp-adaptiveform-textinput__widget {
   height: 50px;
 }
 
-.vaform .cmp-adaptiveform-textinput > .cmp-adaptiveform-textinput__widget:focus  {
+.vaform .cmp-adaptiveform-textinput > .cmp-adaptiveform-textinput__widget:focus,
+.vaform .cmp-adaptiveform-textinput > .cmp-adaptiveform-textinput__widget:focus {
   border-width: 0rem;
 }
 
-.vaform .cmp-adaptiveform-textinput > .cmp-adaptiveform-textinput__widget:focus ~ span.input-close-icon  {
+.vaform .cmp-adaptiveform-textinput > .cmp-adaptiveform-textinput__widget:focus ~ .input-close-icon  {
   color: #61126b !important;
 }
 
 
-.vaform .cmp-adaptiveform-textinput > .cmp-adaptiveform-textinput__widget ~ .cmp-adaptiveform-textinput__label {
+.vaform .cmp-adaptiveform-textinput > .cmp-adaptiveform-textinput__widget ~ .cmp-adaptiveform-textinput__label ,
+.vaform .cmp-adaptiveform-datepicker > .cmp-adaptiveform-datepicker__widget ~ .cmp-adaptiveform-datepicker__label {
   position: absolute;
   bottom: 10px;
   left: 12px;
@@ -4464,8 +4471,9 @@ textarea.cmp-adaptiveform-textinput__widget {
 }
 
 .vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget:focus ~ .cmp-adaptiveform-textinput__label,
-.vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget:not(:focus):valid ~ .cmp-adaptiveform-textinput__label
-{
+.vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget:not(:focus):valid ~ .cmp-adaptiveform-textinput__label ,
+.vaform .cmp-adaptiveform-datepicker .cmp-adaptiveform-datepicker__widget:not(:focus):valid ~ .cmp-adaptiveform-datepicker__label ,
+.vaform .cmp-adaptiveform-datepicker .cmp-adaptiveform-datepicker__widget:focus ~ .cmp-adaptiveform-datepicker__label {
   position: absolute;
   color: #61126b !important;
   bottom: 42px;
@@ -4474,35 +4482,91 @@ textarea.cmp-adaptiveform-textinput__widget {
   background-color: white;
 }
 
-.vaform .cmp-adaptiveform-textinput span.input-icons {
+.vaform .cmp-adaptiveform-textinput .input-icons {
   visibility: hidden;
-  position: relative;
-  top: 5px;
 }
 
-.vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget.input_with_value ~ span.input-close-icon {
+.vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget.input_with_value ~ .input-close-icon {
    visibility: visible;
    cursor: pointer;
 }
 
-.vaform .cmp-adaptiveform-textinput[data-cmp-valid="false"] .cmp-adaptiveform-textinput__widget.input_with_value ~ span.input-close-icon {
-  color: red;
+.vaform .cmp-adaptiveform-textinput[data-cmp-valid="false"] .cmp-adaptiveform-textinput__widget.input_with_value ~ .input-close-icon::after {
+  background-color: red;
+}
+
+.vaform .cmp-adaptiveform-textinput[data-cmp-valid="false"] .cmp-adaptiveform-textinput__widget.input_with_value ~ .input-close-icon::before {
+  background-color: red;
+}
+
+.vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget.input_with_value ~ .input-done-icon {
+  visibility: visible;
+  cursor: text;
+}
+
+.vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget.input_with_value ~ .input-done-icon::before {
+  position: absolute;
+  right: 34px;
+  top: 52%;
+  height: 22%;
+  width: 2px;
+  background-color: #61d048;
+  content: "";
+  transform: translateX(10px) rotate(-45deg);
+  transform-origin: left bottom;
 }
 
 
-.vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget.input_with_value ~ span.input-done-icon {
+.vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget.input_with_value ~ .input-done-icon::after {
+  position: absolute;
+  right: 18px;
+  bottom: 25%;
+  height: 2px;
+  width: 17px;
+  background-color: #61d048;
+  content: "";
+  transform: translateX(10px) rotate(-45deg);
+  transform-origin: left bottom;
+}
+
+
+.vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget.input_with_value ~ .input-close-icon {
   visibility: visible;
-  cursor: text;
+  cursor: pointer;
   color:green;
 }
 
-.vaform .cmp-adaptiveform-textinput[data-cmp-valid="false"] .cmp-adaptiveform-textinput__widget:not(.input_with_value) ~ span.input-error-icon {
+.vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget.input_with_value ~ .input-close-icon::before {
+  position: absolute;
+  right: 57px;
+  bottom: 20%;
+  content: ' ';
+  height: 18px;
+  width: 2px;
+  background-color: #333;
+  transform: rotate(45deg);
+}
+
+
+.vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget.input_with_value ~ .input-close-icon::after {
+  position: absolute;
+  right: 57px;
+  bottom: 20%;
+  content: ' ';
+  height: 18px;
+  width: 2px;
+  background-color: #333;
+  transform: rotate(-45deg);
+}
+
+
+.vaform .cmp-adaptiveform-textinput[data-cmp-valid="false"] .cmp-adaptiveform-textinput__widget:not(.input_with_value) ~ .input-error-icon {
   visibility: visible;
   cursor: text;
   color: red;
 }
 
-.vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget:focus ~ span.input-error-icon {
+.vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget:focus ~ .input-error-icon {
   visibility: hidden !important;
 }
 
@@ -4533,8 +4597,7 @@ textarea.cmp-adaptiveform-textinput__widget {
  color: #ff5252;
 }
 
-.vaform .cmp-adaptiveform-textinput[data-cmp-valid="false"]  > .cmp-adaptiveform-textinput__widget.input_with_value ~ .cmp-adaptiveform-textinput__label
-{
+.vaform .cmp-adaptiveform-textinput[data-cmp-valid="false"]  > .cmp-adaptiveform-textinput__widget.input_with_value ~ .cmp-adaptiveform-textinput__label {
   position: absolute;
   color: #ff5252;
   bottom: 40px;
@@ -4610,3 +4673,157 @@ textarea.cmp-adaptiveform-textinput__widget {
   color: #fff;
   border: 0px;
 }
+
+ .datetimepicker {
+  border: none;
+  background-color: #FFF;
+  display: none;
+  position: absolute;
+  cursor: default;
+  z-index: 100;
+  outline: solid #CCCCCC 2px;
+  flex-direction: column;
+  width: 433px;
+}
+
+.datetimepicker .dp-clear {
+  overflow: auto;
+  background-color: #F5F5F5;
+  text-align: center;
+}
+
+.datetimepicker .dp-clear a {
+  cursor: pointer;
+  height: 40px;
+  line-height: 40px;
+  padding: 0px 5px 0px 5px;
+  text-align: center;
+  display: inline-block;
+  font-size: 0.875rem;
+  color: #969696;
+}
+
+.datetimepicker-notouch .dp-close a:hover {
+  color: #c8bbff;
+}
+
+.datetimepicker .dp-header {
+  height: 40px;
+  line-height: 40px;
+  color: #555555;
+  margin-bottom: 5px;
+  background-color: #E6E6E6;
+  display: flex;
+  justify-content: space-between;
+}
+
+.datetimepicker .dp-header .dp-leftnav,
+.datetimepicker .dp-header .dp-rightnav,
+.datetimepicker .dp-header .dp-caption {
+  float: left;
+  text-align: center;
+  cursor: pointer;
+  height: 40px;
+}
+
+.datetimepicker-notouch .dp-header .dp-caption:not(.disabled):hover {
+  color: #969696;
+}
+
+.datetimepicker .dp-header .dp-rightnav {
+  float: right;
+  background: url("./images/rightnav.png") no-repeat center center;
+  width: 40px;
+}
+
+.datetimepicker .dp-header .dp-leftnav {
+  width: 40px;
+  background: url("./images/leftnav.png") no-repeat center center;
+}
+
+.datetimepicker .dp-header .dp-rightnav:hover {
+  background: url("./images/rightnav_hover.png") no-repeat center center;
+}
+
+.datetimepicker .dp-header .dp-leftnav:hover {
+  background: url("./images/leftnav_hover.png") no-repeat center center;
+}
+
+.datetimepicker .view {
+  display: none;
+}
+
+.datetimepicker .view ul {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+  margin: 0;
+  padding: 5px;
+  overflow: hidden;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.datetimepicker .view ul li {
+  float: left;
+  padding: 5px;
+  text-align: center;
+  border: none;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  color: #666666;
+}
+
+.datetimepicker .view ul.header li {
+  color: #555555;
+}
+
+.datetimepicker .view ul:not(.header) li:not(.disabled) {
+  cursor: pointer;
+}
+
+.datetimepicker .view ul.header {
+  color: #000;
+  background-color: #FFF;
+  border-bottom: #E6E6E6 1px solid;
+  display: flex;
+  justify-content: space-around;
+}
+
+.datetimepicker-notouch .view ul:not(.header) li:not(.disabled):hover {
+  color: black;
+  background-color: #E6E6E6;
+  opacity: 0.5;
+}
+
+.datetimepicker .view ul li.disabled {
+  color: #CCCCCC;
+}
+
+.datetimepicker .view ul li.dp-selected {
+  outline: none;
+  background-color: #666666;
+  color: #FFFFFF;
+  opacity: 1.0;
+}
+
+.datetimepicker .view ul li.dp-focus {
+  border: 1px dashed black;
+}
+
+.datepicker-calendar-icon {
+  position: absolute;
+  top: 11px;
+  right: 16px;
+  z-index: 10;
+  background: url("./images/calendar.png") no-repeat center center;
+  background-size: contain;
+  width: 24px;
+  height: 24px;
+}
+
+.datefieldwidget.widgetreadonly .datepicker-calendar-icon {
+  display: none;
+}
+
+/*** datepickerwidget.css */
