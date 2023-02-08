@@ -152,7 +152,7 @@ export default class DatePickerWidget {
             window.afCache = new Cache();
         }
         this.#model = model;
-        this.#lang = "en"; //TODO
+        this.#lang = model.language;
         let editValFn = (value) => {
             return this.#formatDate(value, model.editFormat);
         };
@@ -209,11 +209,15 @@ export default class DatePickerWidget {
                     }
                 }
             }, false);
-        "touchstart mousedown".split(" ").forEach(function (e) {
-            self.#dp.addEventListener(e, function (evt) {
-                self.#checkWindowClicked(evt)
-            }, false);
-        });
+
+        this.#dp.addEventListener("touchstart", (evnt) => {
+            self.#checkWindowClicked(evnt)
+        }, { passive: true, useCapture: false });
+
+        this.#dp.addEventListener("mousedown", (evnt) => {
+            self.#checkWindowClicked(evnt)
+        }, false);
+
 
         this.$month = this.#dp.getElementsByClassName("dp-monthview")[0];
         this.$year = this.#dp.getElementsByClassName("dp-yearview")[0];
