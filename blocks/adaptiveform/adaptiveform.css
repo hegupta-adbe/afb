@@ -4507,7 +4507,7 @@ textarea.cmp-adaptiveform-textinput__widget {
 .vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget.input_with_value ~ .input-done-icon::before {
   position: absolute;
   right: 34px;
-  top: 52%;
+  bottom: 18px;
   height: 22%;
   width: 2px;
   background-color: #61d048;
@@ -4520,7 +4520,7 @@ textarea.cmp-adaptiveform-textinput__widget {
 .vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget.input_with_value ~ .input-done-icon::after {
   position: absolute;
   right: 18px;
-  bottom: 25%;
+  bottom: 18px;
   height: 2px;
   width: 17px;
   background-color: #61d048;
@@ -4539,7 +4539,7 @@ textarea.cmp-adaptiveform-textinput__widget {
 .vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget.input_with_value ~ .input-close-icon::before {
   position: absolute;
   right: 57px;
-  bottom: 20%;
+  bottom: 15px;
   content: ' ';
   height: 18px;
   width: 2px;
@@ -4551,7 +4551,7 @@ textarea.cmp-adaptiveform-textinput__widget {
 .vaform .cmp-adaptiveform-textinput .cmp-adaptiveform-textinput__widget.input_with_value ~ .input-close-icon::after {
   position: absolute;
   right: 57px;
-  bottom: 20%;
+  bottom: 15px;
   content: ' ';
   height: 18px;
   width: 2px;
