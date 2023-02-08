@@ -15,13 +15,13 @@ export const createLabel = (state, bemBlock) => {
     }
 }
 
-export const createTickIcon = (bemBlock) => {
+export const createTickIcon = () => {
     let div = document.createElement('div');
     div.className = 'input-icons input-done-icon';
     return div;
 }
 
-export const createCloseIcon = (bemBlock) => {
+export const createCloseIcon = () => {
     let div = document.createElement('div');
     div.className = 'input-icons input-close-icon';
     div.addEventListener('click', (event) => {
@@ -31,14 +31,16 @@ export const createCloseIcon = (bemBlock) => {
     return div;
 }
 
-export const createErrorIcon = (bemBlock) => {
-    let span = document.createElement('span');
-    span.className = 'input-icons input-error-icon';
-    span.textContent = 'error';
-    return span;
+export const createErrorIcon = () => {
+    let div = document.createElement('div');
+    div.className = 'input-icons input-error-icon';
+    let span = document.createElement("span");
+    span.textContent = "!";
+    div.appendChild(span);
+    return div;
 }
 
-export const createCounterSpan = (bemBlock) => {
+export const createCounterSpan = () => {
     let span = document.createElement('span');
     span.className = "input_counter_span";
     return span;
@@ -54,14 +56,14 @@ export let renderField = (model, bemBlock, renderInput) => {
     let longDesc = builder?.default?.createLongDescHTML(state, bemBlock);
     let help = builder?.default?.createQuestionMarkHTML(state, bemBlock);
     let error = builder?.default?.createErrorHTML(state, bemBlock);
-    let closeIcon  = builder?.default?.createCloseIcon(bemBlock);
-    let tickIcon  = builder?.default?.createTickIcon(bemBlock);
-    let errorIcon  = builder?.default?.createErrorIcon(bemBlock);
-    let counterSpan  = builder?.default?.createCounterSpan(bemBlock);
+    let closeIcon  = builder?.default?.createCloseIcon();
+    let tickIcon  = builder?.default?.createTickIcon();
+    let errorIcon  = builder?.default?.createErrorIcon();
+    let counterSpan  = builder?.default?.createCounterSpan();
     let maxValue = state?.maxLength;
     counterSpan.textContent = `0 / ${maxValue}`;
     inputs ? element.appendChild(inputs) : null;
-    if ( state?.fieldType !== 'select' && state?.fieldType != 'datepicker') {
+    if ( state?.fieldType !== 'select' && state?.fieldType !== 'datepicker') {
         inputs.addEventListener('input', (event) => {   
             let inputValue = event.target.value;
             if ( inputValue.length === 0) {
@@ -79,7 +81,7 @@ export let renderField = (model, bemBlock, renderInput) => {
         });
          closeIcon ? element.appendChild(closeIcon) : null;
          tickIcon ? element.appendChild(tickIcon) : null;
-        // errorIcon ? element.appendChild(errorIcon) : null;
+         errorIcon ? element.appendChild(errorIcon) : null;
     }
     label ? element.appendChild(label) : null;
     longDesc ?  element.appendChild(longDesc) : null;
