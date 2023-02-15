@@ -1,0 +1,64 @@
+@import (reference) '../../styles/variables.less';
+@field-max-width: 600px;
+@input-padding: @spacing-04;
+@input-border-color: #C1C1C3;
+@input-margin-bottom: @spacing-05;
+
+@label-margin-bottom: @spacing-06;
+
+@font-family-nedbank-bold: "Nedbank Sans Bold";
+@font-family-nedbank-medium: "Nedbank Sans Medium";
+@font-family-opensans-bold: "Open Sans Semibold";
+@font-family-opensans-regular: "Open Sans Regular";
+
+@field-description-color: @dotcoza-color-body-grey;
+
+@field-error-color: #ea394d;
+
+@range-color-grey: #C5C5C5;
+
+@range-color-light: @dotcoza-color-body-grey;
+
+@tooltip-icon: url(/icons/tooltip.svg);
+@tooltip-font-size: .875rem;
+@tooltip-line-height: 1.5;
+@tooltip-borderWidth: 7px;
+
+@calculator-outline-color: #d5e4e1;
+
+@up-arrow-icon: url(/icons/up-arrow.svg);
+@down-arrow-icon: url(/icons/down-arrow.svg);
+@diagonal-arrow-icon: url(/icons/diagonal-arrow.svg);
+
+@green-color-1: #5fa317;
+
+.circle() {
+  border-radius: 50%;
+}
+
+.calculatorLayout() {
+  display: grid;
+  grid-template-areas: "input output"
+    "input buttons";
+  column-gap: 134px;
+  grid-template-columns: 1fr 1fr;
+  box-sizing: border-box;
+
+  .Input {
+    grid-area: input;
+  }
+
+  .Output {
+    grid-area: output;
+    padding: @spacing-07 @spacing-08 @spacing-05 @spacing-08;
+    margin-bottom: @spacing-06;
+    border-radius: 10px;
+    background-color: @test17;
+    box-shadow: 0 25px 20px -15px rgb(0 0 0 / 10%);
+    align-self: flex-start;
+  }
+
+  .buttons {
+    grid-area: buttons;
+  }
+}
