@@ -472,3 +472,160 @@ input[type="range"]:focus::-webkit-slider-thumb {
 .personalloan .form-emi output {
   color: #5fa317;
 }
+
+/* ROI Styling */
+
+/** form specific style */
+.roi {
+  box-sizing: border-box;
+  max-width: 1228px;
+  border-radius: 20px;
+  padding: 48px 0;
+  margin: 0 auto 48px;
+}
+
+.roi h3 {
+  font-size: 20px;
+  line-height: 28px;
+  padding-bottom: 48px;
+  margin-bottom: 0;
+  font-family: "Open Sans Regular";
+  color: #494f50;
+}
+
+.roi .default-content-wrapper p {
+  width: 100%;
+  color: #494f50;
+  font-family: "Open Sans Regular";
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 24px;
+  display: block;
+  margin-top: 48px;
+}
+
+.roi form {
+  display: grid;
+  grid-template-areas: "input output" "input buttons";
+  column-gap: 134px;
+  grid-template-columns: 1fr 1fr;
+  box-sizing: border-box;
+}
+
+.roi form .Input {
+  grid-area: input;
+  padding-left: 100px;
+}
+
+.roi form .Output {
+  grid-area: output;
+  margin-bottom: 24px;
+  border-radius: 10px;
+  box-shadow: 0 25px 20px -15px rgba(0, 0, 0, 0.1);
+  align-self: flex-start;
+  text-align: center;
+
+  background-color: #fff;
+    padding: 74px 60px 67px;
+    margin-top: -20px;
+}
+.roi legend {
+  font-family: Fira Sans,Trebuchet MS,sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 30px;
+    margin: 0 0 30px;
+}
+
+.roi form .buttons {
+  grid-area: buttons;
+}
+
+.roi .Input label {
+  font-size: 8px;
+  line-height: 8px;
+  color: #626467;
+  letter-spacing: 1px;
+  padding-left: 10px;
+  font-family: Red Hat Text,Arial,Helvetica,sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 0px;
+}
+
+.roi .Input input {
+  border: 0px;
+  height: 24px;
+  width: 80%;
+  margin: 0px;
+}
+
+.roi .Input .field-wrapper {
+  background-color: #fff;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.roi .Input .form-Calculate {
+  background: none ;
+}
+
+.roi .Input .form-radio-wrapper {
+  margin-bottom: 0;
+}
+
+.roi .Output {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  flex-wrap: wrap;
+  
+}
+
+.roi output {
+  font-size: 36px;
+  line-height: 44px;
+  font-weight: 800;
+  color: #73c41d;
+}
+
+.roi .Output label {
+  font-size: 21px;
+  line-height: 28px;
+  color: #74767a;
+  font-weight: 700;
+}
+
+.roi .Output>.field-wrapper {
+  flex-grow: 2;
+}
+
+.roi .buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.roi .form-button-wrapper {
+  padding-left: 13px;
+  padding-right: 0;
+}
+
+.roi .buttons button {
+  padding: 0.375rem 0.75rem;
+}
+
+.section {
+
+  background-color: #f5f4f1;
+}
+
+.roi button {
+  background: #73c41d;
+    margin-top: 40px;
+    border-radius: 100px;
+    border: none;
+    color: #fff;
+}
