@@ -79,6 +79,17 @@ export default function functions(debug) {
         { types: [dataTypes.TYPE_NUMBER] },
       ],
     },
+    ceiling: {
+      func: (args) => {
+        const num = toNumber(args[0]);
+        const significance = toNumber(args[1]);
+        return Math.ceil(num / significance) * significance;
+      },
+      signature: [
+        { types: [dataTypes.TYPE_NUMBER] },
+        { types: [dataTypes.TYPE_NUMBER] },
+      ],
+    },
 
     round: {
       func: (args) => {
