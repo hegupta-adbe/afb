@@ -1,0 +1,16 @@
+{
+    "name": "Franklin Form",
+    "description": "",
+    "version": "1.0",
+    "manifest_version": 3,
+    "permissions": ["activeTab", "scripting"],
+    "action": {},
+    "options_page": "options.html",
+    "background": {
+        "service_worker": "background.js"
+      },
+    "web_accessible_resources": [{
+        "resources": [ "scripts/*.js", "form/*.js"],
+        "matches": [ "https://*/*" ]
+    }]
+  }
