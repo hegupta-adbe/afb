@@ -2,31 +2,36 @@
     --form-font-size-m: 22px;
     --form-font-size-s: 18px;
     --form-font-size-xs: 16px;
-    --form-background-color: var(--mt-background-color-primary);
+    --form-font-size-xxs: 12px;
+    --form-background-color: var(--va-background-color-secondary);
     --form-padding: 3%;
     --form-columns: 1;
-    --form-field-gap: 20px 0 0 0;
+    --form-field-gap: 12px 0;
     --form-invalid-border-color: var(--mt-global-color-orange);
-    --form-input-padding: 0.75rem 0.6rem;
-    --form-input-font-size: var(--mt-font-size-100);
+    --form-input-padding: 10px 15px;
+    --form-input-font-size: var(--form-font-size-xs);
     --form-input-disable-color: var(--mt-global-color-silver);
     --form-input-border-size: 1px;
-    --form-input-border-color: var(--mt-global-color-oslo-gray);
+    --form-input-border-color: var(--va-global-color-whisper-white);
     --form-input-background-color: var(--mt-background-color-primary);
-    --form-paragraph-color: var(--mt-global-color-dove-gray);
-    --form-paragraph-margin: 0 0 0.9rem;
+    --form-paragraph-color: var(--form-label-color);
+    --form-paragraph-margin: 0;
     --form-paragraph-font-style: none;
-    --form-paragraph-font-size: var(--form-font-size-xs);
-    --form-label-color: var(--mt-global-color-dove-gray);
+    --form-paragraph-font-size: 14px;
+    --form-label-color: var(--va-global-color-dark-gray);
     --form-label-font-size: var(--form-font-size-xs);
-    --form-label-font-weight: bold;
-    --form-fieldset-border: 0;
+    --form-label-font-weight: normal;
+    --form-errorMessage-font-size: var(--form-font-size-xxs);
+    --form-errorMessage-color: #ff5252;
+    --form-fieldset-border: 1px solid #dadada;
     --form-fieldset-marign: 0;
-    --form-fieldset-legend-color: var(--form-label-color);
-    --form-fieldset-legend-font-size: var(--form-label-font-size);
+    --form-fieldset-padding: 30px 40px;
+    --form-fieldset-backgroundColor: var(--va-background-color-primary);
+    --form-fieldset-legend-color: var(--va-global-color-purple);
+    --form-fieldset-legend-font-size: var(--form-font-size-m);
     --form-fieldset-legend-font-weight: var(--form-label-font-weight);
     --form-fieldset-legend-border: none;
-    --form-fieldset-legend-padding: 0;
+    --form-fieldset-legend-padding: 20px 0 30px;
     --form-button-color: var(--mt-background-color-primary);
     --form-button-font-size: var(--form-font-size-s);
     --form-button-background-color: var(--mt-global-color-accent-primary);
@@ -36,11 +41,11 @@
     --form-upload-color: var(--mt-background-color-primary);
     --form-upload-font-size: var(--form-font-size-xs);
     --form-upload-background-color: var(--mt-global-color-base-primary);
-    --form-submit-width: 100%;
+    --form-submit-width: 70%;
 }
 
 main .form-container {
-    background-color: var(--mt-background-color-primary);
+    background-color: var(--va-background-color-secondary);
     padding: var(--form-padding);
 }
 
@@ -56,11 +61,50 @@ main .form form {
 main .form form fieldset {
     border: var(--form-fieldset-border);
     margin: var(--form-fieldset-marign);
-    width: 100%;
+    padding: var(--form-fieldset-padding);
+    background-color: var(--form-fieldset-backgroundColor);
 }
 
-main .form form fieldset fieldset {
+main .form form fieldset[data-repeatable=true] {
+    padding: 20px;
+}
+
+main .form form fieldset[data-repeatable=true] fieldset {
+    border: 0;
     padding: 0;
+}
+
+main .form form fieldset[data-repeatable=true] fieldset > h3 {
+    display: none;
+}
+
+main .form form fieldset[data-repeatable=true] .fieldset-Add {
+    background-color: white;
+    background-image: url('../../icons/plus.svg');
+    background-repeat: no-repeat;
+    position: relative;
+    left: 35%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+main .form form fieldset[data-repeatable=true] .fieldset-Add::after {
+    content: 'Add Passenger';
+    color: black;
+    margin-left: 30px;
+}
+
+main .form form fieldset[data-repeatable=true] .fieldset-Remove {
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    color: var(--va-global-color-purple);
+    float: right;
+    text-decoration: underline
+}
+
+main .form form fieldset[data-repeatable=true] .fieldset-Remove::after {
+    content: 'Clear';
 }
 
 main .form .field-description {
@@ -68,16 +112,31 @@ main .form .field-description {
     font-size: var(--form-font-size-xs);
 }
 
-main .form :is(input, textarea, select) {
+main .form select {
+    display: none;
+}
+
+main .form :is(input, textarea, .field-select-display) {
     background-color: var(--form-input-background-color);
     border: var(--form-input-border-size) solid var(--form-input-border-color);
-    width: calc(100% - 16px);
-    height: 42px;
+    width: 100%;
+    height: 54px;
     color: var(--form-label-color);
     padding: var(--form-input-padding);
-    margin: 10px 0 0;
+    margin: unset;
     font-size: var(--form-input-font-size);
     max-width: unset;
+}
+
+main .form .field-select-display {
+    box-sizing: border-box;
+}
+
+main .form :is(input, .field-select-display, textarea):focus,
+main .form :is(input, .field-select-display, textarea):focus-visible {
+    outline: 0;
+    border-bottom-color: var(--va-global-color-purple);
+    border-bottom-width: 2px;
 }
 
 main .form input[type='file'] {
@@ -86,9 +145,9 @@ main .form input[type='file'] {
 
 main .form input[type='checkbox'],
 main .form input[type='radio'] {
-    width: 16px;
-    height: 16px;
-    margin: 0 0 0 8px;
+    width: 25px;
+    height: 25px;
+    margin: 7px;
     flex: none;
 }
 
@@ -96,44 +155,40 @@ main .form textarea {
     min-height: 100px;
 }
 
-main .form :is(input:hover, select:hover) {
-    border-color: rgb(90 92 96);
+main .form :is(input, .field-select-display):hover {
+    border-bottom-color: var(--va-global-color-purple);
 }
 
-main .form fieldset legend {
+main .form .form-select-wrapper .field-select-display::after {
+    content: url(/icons/down-arrow.svg);
+    float: right;
+}
+
+main .form .form-select-wrapper[expanded] .field-select-display::after {
+    content: url(/icons/up-arrow.svg);
+}
+
+main .form fieldset > h3 {
     font-weight: var(--form-fieldset-legend-font-weight);
     font-size: var(--form-fieldset-legend-font-size);
     color: var(--form-fieldset-legend-color);
     border-bottom: var(--form-fieldset-legend-border);
     width: 100%;
     padding: var(--form-fieldset-legend-padding);
-}
-
-main .innovate form > fieldset > legend {
-    text-align: center;
-}
-
-main .form fieldset legend:has(div.form-radio-wrapper) {
-    border-bottom: 0;
+    margin: 0;
 }
 
 main .form label {
     font-weight: var(--form-label-font-weight);
     font-size: var(--form-label-font-size);
     color: var(--form-label-color);
-    margin: 1rem 0;
-}
-
-main .form label.required::after {
-    content: "*";
-    color: var(--form-label-color);
-    padding-left: 5px;
 }
 
 main .form form p,
 main .form form .field-wrapper {
     margin: var(--form-field-gap);
     color: var(--form-label-color);
+    position: relative;
 }
 
 main .form form p {
@@ -143,20 +198,10 @@ main .form form p {
     margin: var(--form-paragraph-margin);
 }
 
-main .form form fieldset > :is(.form-radio-wrapper:first-of-type, .form-checkbox-wrapper:first-of-type) {
-    margin: var(--form-field-gap);
-}
-
-main .form form :is(.form-checkbox-wrapper, .form-radio-wrapper){
+main .form form :is(.form-checkbox-wrapper, .form-radio-wrapper) {
   display: flex;
-  align-items: baseline;
-  margin: 0;
-}
-
-main .form .form-radio-wrapper  label,
-main .form .form-checkbox-wrapper label {
-    font-weight: var(--mt-font-weight-regular);
-    margin: 0 0 0.3em 0.3em;
+  align-items: center;
+  margin-left: 8px;
 }
 
 input::file-selector-button {
@@ -176,38 +221,133 @@ main .form button {
     border-radius: unset;
 }
 
-main .form button:hover {
-    background: var(--form-button-background-hover-color);
+main .form-submit-wrapper {
+    text-align: center;
 }
 
-main .form-submit-wrapper{
+main .form-submit-wrapper > button {
+    margin: auto 0;
     width: var(--form-submit-width);
+    background-image: linear-gradient(279deg,#a11453,#e1163c);
 }
 
-main .form :is(input:disabled, textarea:disabled, select:disabled, button:disabled) {
+main .form :is(input, textarea, select, button):disabled {
     background-color: var(--form-input-disable-color);
 }
 
+main .form :not(.form-checkbox-wrapper, .form-radio-wrapper) > label {
+    margin: 15px 15px;
+    position: absolute;
+    transition: .3s cubic-bezier(.25,.8,.5,1);
+}
+
+main .form :is([data-active=true], [data-empty=false], .form-date-wrapper) > label {
+    font-size: var(--form-font-size-xxs);
+    color: var(--va-global-color-purple);
+    background-color: var(--va-background-color-primary);
+    transform: translateY(-25px);
+    z-index: 1;
+}
+
+main .form :is([data-valid=true], [data-valid=false]) :is(input, .field-select-display, textarea) {
+    padding-right: 40px;
+}
+
+main .form .field-wrapper[data-empty=false] :is(input) {
+    padding-right: 70px;
+}
+
+main .form .field-wrapper > span {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    height: 20px;
+    width: 20px;
+    margin: 15px 10px;
+}
+
+main .form [data-valid=true] > span {
+    background-image: url('../../icons/check.svg');
+}
+
+main .form [data-valid=false] > span {
+    background-image: url('../../icons/error.svg');
+}
+
+main .form .field-wrapper .field-reset {
+    right: 35px;
+    background-image: url('../../icons/cross.svg') !important;
+    cursor: pointer;
+}
+
+main .form [data-empty=true] .field-reset {
+    display: none;
+}
+
+main .form .field-wrapper .field-info {
+    font-size: var(--form-font-size-xxs);
+    height: 20px;
+}
+
+main .form [data-valid=false] .field-info {
+    color: #ff5252;
+}
+
+main .form .field-info > span {
+    float: right;
+}
+
+main .form :is(.field-select-dialog, .field-search-dialog) {
+    z-index: 100;
+    width: 100%;
+    max-height: 300px;
+    padding: 0;
+    overflow-y: scroll;
+    border: 0;
+    border-radius: 0;
+    color: rgba(0,0,0,.87);
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    box-sizing: border-box;
+}
+
+main .form :is(.field-search-dialog, .field-select-dialog) > div {
+    height: 24px;
+    line-height: 24px;
+    padding: 12px 20px;
+    color: var(--va-global-color-purple);
+    cursor: pointer;
+}
+
+main .form :is(.field-search-dialog, .field-select-dialog) > div:hover {
+    background: rgba(0,0,0,.04);
+}
+
+
+main .form input[type="search"]::-webkit-search-decoration,
+main .form input[type="search"]::-webkit-search-cancel-button,
+main .form input[type="search"]::-webkit-search-results-button,
+main .form input[type="search"]::-webkit-search-results-decoration { 
+    display: none; 
+}
+
 @media (min-width: 576px) {
-    .form-container {
+    form {
         max-width: 540px;
     }
 }
   
 @media (min-width: 768px) {
-    .form-container {
-        max-width: 740px;
-        margin: 0 auto 10px;
-    }
-
     form {
         width: unset;
         flex-flow: wrap row;
+        margin: 0 auto 10px;
+        max-width: 740px;
     }
 }
   
 @media (min-width: 1200px), (min-width: 992px) {
     :root {
-        --form-columns: 2;
+        --form-columns: 1;
+        --form-fieldset-padding: 30px 90px;
     }
 }

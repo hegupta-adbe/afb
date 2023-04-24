@@ -1,4 +1,12 @@
 import { sampleRUM } from '../../scripts/lib-franklin.js';
+import decorateInputs from './decorators/input.js';
+import decorateFieldsets from './decorators/fieldset.js';
+import decorateEmail from './decorators/email.js';
+import decorateSelect from './decorators/select.js';
+
+function isMandatory(fd) {
+  return fd.Mandatory && fd.Mandatory.toLowerCase() === 'true';
+}
 
 function constructPayload(form) {
   const payload = {};
@@ -55,7 +63,7 @@ function createLabel(fd, tagName = 'label') {
   const label = document.createElement(tagName);
   label.setAttribute('for', fd.Id);
   label.className = 'field-label';
-  label.textContent = fd.Label || '';
+  label.textContent = isMandatory(fd) && fd.Label ? fd.Label + ' *' : fd.Label || '';
   if (fd.Tooltip) {
     label.title = fd.Tooltip;
   }
@@ -157,13 +165,16 @@ function createHidden(fd) {
 }
 
 function createLegend(fd) {
-  return createLabel(fd, 'legend');
+  return createLabel(fd, 'h3');
 }
 
 function createFieldSet(fd) {
   const wrapper = createFieldWrapper(fd, 'fieldset');
   wrapper.name = fd.Name;
   wrapper.replaceChildren(createLegend(fd));
+  if (fd.Repeatable && fd.Repeatable.toLowerCase() === 'true') {
+    wrapper.dataset.repeatable = true;
+  }
   return wrapper;
 }
 
@@ -182,8 +193,39 @@ function createPlainText(fd) {
   const nameStyle = fd.Name ? `form-${fd.Name}` : '';
   paragraph.className = nameStyle;
   paragraph.dataset.fieldset = fd.Fieldset ? fd.Fieldset : '';
-  paragraph.textContent = fd.Label;
+  paragraph.innerHTML = fd.Label;
   return paragraph;
+}
+
+function createSearch(fd) {
+  const wrapper = createFieldWrapper(fd);
+  const field = createInput(fd);
+  const dialog = document.createElement('dialog');
+  dialog.className = 'field-search-dialog';
+  const options = fd.Options.split(',');
+  const onValue = (value) => {
+    field.value = value;
+    dialog.open = false;
+    field.dispatchEvent(new Event("blur"));
+  };
+  field.onclick = field.oninput = (event) => {
+    dialog.innerHTML = '';
+    options.filter(o => o.toLowerCase().includes(field.value.toLowerCase())).forEach((o) => {
+      const div = document.createElement('div');
+      div.textContent = o.trim();
+      div.onclick = () => onValue(div.textContent);
+      dialog.append(div);
+    });
+    dialog.open = true;
+    event.stopImmediatePropagation();
+  };
+  document.addEventListener('click', (event) => {
+    if(!wrapper.contains(event.target) && dialog.open) {
+      onValue(options.includes(field.value) ? field.value : '');
+    }
+  });
+  wrapper.append(field, dialog);
+  return wrapper;
 }
 
 const getId = (function getId() {
@@ -207,6 +249,7 @@ const fieldRenderers = {
   hidden: createHidden,
   fieldset: createFieldSet,
   plaintext: createPlainText,
+  search: createSearch,
 };
 
 function renderField(fd) {
@@ -247,7 +290,7 @@ async function createForm(formURL) {
   data.forEach((fd) => {
     const el = renderField(fd);
     const input = el.querySelector('input,textarea,select');
-    if (fd.Mandatory && fd.Mandatory.toLowerCase() === 'true') {
+    if (isMandatory(fd)) {
       input.setAttribute('required', 'required');
     }
     if (input) {
@@ -261,6 +304,10 @@ async function createForm(formURL) {
     form.append(el);
   });
   groupFieldsByFieldSet(form);
+  decorateFieldsets(form);
+  decorateInputs(form);
+  decorateSelect(form);
+  decorateEmail(form);
   // eslint-disable-next-line prefer-destructuring
   form.dataset.action = pathname.split('.json')[0];
   form.addEventListener('submit', (e) => {

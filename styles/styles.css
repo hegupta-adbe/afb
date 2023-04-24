@@ -31,15 +31,21 @@
   --mt-global-color-accent-quinary: #84329b;
   --mt-global-color-black: #000;
   --mt-global-color-white: #fff;
+  --va-global-color-whisper-white: #ececec;
+  --va-global-color-gray: #f8f8f8;
+  --va-global-color-purple: #61126b;
   --mt-global-color-orange: #ff5f3f;
   --mt-global-color-oslo-gray: #818a91;
   --mt-global-color-dove-gray: #666;
+  --va-global-color-dark-gray: #222;
   --mt-global-color-blue-ribbon: #035fe6;
   --mt-global-color-silver: #ccc;
   --mt-global-color-alabaste: #F7F7F7;
   --mt-global-color-gallery: #ECECEC;
 
   /* feature background colors */
+  --va-background-color-primary: var(--mt-global-color-white);
+  --va-background-color-secondary: var(--va-global-color-gray);
   --mt-background-color-primary: var(--mt-global-color-white);
   --mt-background-color-secondary: var(--mt-global-color-black);
   --mt-button-background-color-primary: var(--mt-global-color-accent-primary);
@@ -249,6 +255,17 @@ main .section {
 @media (min-width: 600px) {
   main .section {
     padding: 64px 32px;
+  }
+}
+
+@media (min-width: 768px) {
+  main .form-container .default-content-wrapper {
+    max-width: 740px;
+    text-align: center;
+  }
+
+  main .form-container .default-content-wrapper > h3 {
+    color: #e1163c;
   }
 }
 
