@@ -1,19 +1,22 @@
 import { sampleRUM } from '../../scripts/lib-franklin.js';
+import { formInit, formPostSubmit, handleFileUpload } from './init.js';
 
-function constructPayload(form) {
+async function constructPayload(form) {
   const payload = {};
-  [...form.elements].forEach((fe) => {
+  await Promise.all([...form.elements].map(async (fe) => {
     if (fe.type === 'checkbox') {
       if (fe.checked) payload[fe.id] = fe.value;
+    } else if (fe.type === 'file') {
+      payload[fe.id] = await handleFileUpload(fe);
     } else if (fe.id) {
       payload[fe.id] = fe.value;
     }
-  });
+  }));
   return payload;
 }
 
 async function submitForm(form) {
-  const payload = constructPayload(form);
+  const payload = await constructPayload(form);
   const resp = await fetch(form.dataset.action, {
     method: 'POST',
     headers: {
@@ -23,6 +26,7 @@ async function submitForm(form) {
   });
   await resp.text();
   sampleRUM('form:submit');
+  await formPostSubmit(form, payload);
   return payload;
 }
 
@@ -30,7 +34,7 @@ async function handleSubmit(form, redirectTo) {
   if (form.getAttribute('data-submitting') !== 'true') {
     form.setAttribute('data-submitting', 'true');
     await submitForm(form);
-    window.location.href = redirectTo || 'thankyou';
+    window.location.href = redirectTo || 'thank-you';
   }
 }
 
@@ -268,6 +272,7 @@ async function createForm(formURL) {
     e.submitter.setAttribute('disabled', '');
     handleSubmit(form, e.submitter.dataset?.redirect);
   });
+  formInit(form, data);
   return form;
 }
 
