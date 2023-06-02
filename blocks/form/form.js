@@ -1,7 +1,7 @@
 // import { sampleRUM } from '../../scripts/lib-franklin.js';
 
 const SITE_KEY = '6LcB318mAAAAAO6smzDd-TtD1-AWlidsHsCXcJHy';
-const FORM_SUBMIT_ENDPOINT = 'https://franklin-submit-wrapper.mammotome.workers.dev';
+const FORM_SUBMIT_ENDPOINT = 'https://franklin-submit-wrapper.adobeaem.workers.dev';
 
 function loadScript(url) {
   const head = document.querySelector('head');
